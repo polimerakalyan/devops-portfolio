@@ -107,6 +107,20 @@ I can help with:
 - Application deployment automation
 
 ---
+
+Project Results
+===============
+
+- Automated application deployment using Jenkins CI/CD
+- Docker images built automatically from source code
+- Docker images pushed to Amazon ECR
+- Application deployed to Amazon EKS
+- Kubernetes rolling deployment implemented
+- Jenkins verifies Kubernetes rollout status
+- GitHub webhook triggers the CI/CD pipeline
+- Reduced manual deployment steps through automation
+
+  
 📫 Contact
 
 Available for freelance and part-time DevOps projects.
