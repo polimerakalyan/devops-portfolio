@@ -38,15 +38,20 @@ The complete CI/CD pipeline is implemented using a Jenkins Declarative Pipeline.
 
 [View Jenkinsfile](./jenkins/Jenkinsfile)
 
-CI/CD Flow
-===========
+
+CI/CD Pipeline
+==============
 
 ```text
+Developer
+   ↓
 GitHub
    ↓
 GitHub Webhook
    ↓
 Jenkins
+   ↓
+Checkout Source Code
    ↓
 Docker Build
    ↓
@@ -54,10 +59,9 @@ Amazon ECR
    ↓
 Amazon EKS
    ↓
-Kubernetes
+Kubernetes Rolling Update
    ↓
 Application
-```
 
 Key Implementation
 ==================
