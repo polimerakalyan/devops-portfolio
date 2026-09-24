@@ -1,0 +1,84 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1'
+        ECR_REPO = '<YOUR_ECR_REPOSITORY_URL>'
+        IMAGE_TAG = "build-${BUILD_NUMBER}"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git(
+                    url: '<YOUR_GITHUB_REPOSITORY_URL>',
+                    branch: 'main',
+                    credentialsId: '<JENKINS_GITHUB_CREDENTIAL_ID>'
+                )
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    echo "Building Docker image..."
+                    docker build -t application:${IMAGE_TAG} .
+                '''
+            }
+        }
+
+        stage('ECR Login') {
+            steps {
+                sh '''
+                    aws ecr get-login-password --region ${AWS_REGION} | \
+                    docker login --username AWS --password-stdin ${ECR_REPO}
+                '''
+            }
+        }
+
+        stage('Tag Image') {
+            steps {
+                sh '''
+                    docker tag application:${IMAGE_TAG} ${ECR_REPO}:${IMAGE_TAG}
+                    docker tag application:${IMAGE_TAG} ${ECR_REPO}:latest
+                '''
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                sh '''
+                    docker push ${ECR_REPO}:${IMAGE_TAG}
+                    docker push ${ECR_REPO}:latest
+                '''
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                sh '''
+                    kubectl set image deployment/application \
+                    application=${ECR_REPO}:${IMAGE_TAG} \
+                    -n application
+                '''
+            }
+        }
+
+        stage('Verify EKS Rollout') {
+            steps {
+                sh '''
+                    kubectl rollout status deployment/application \
+                    -n application \
+                    --timeout=180s
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Docker image pushed to ECR and deployed to EKS successfully!'
+        }
+    }
+}
