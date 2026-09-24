@@ -31,6 +31,13 @@ Inventory Management Application — DevOps Implementation
 
 A real-world application deployment implemented using AWS, Docker, Jenkins and Kubernetes.
 
+Jenkins Pipeline
+================
+
+The complete CI/CD pipeline is implemented using a Jenkins Declarative Pipeline.
+
+[View Jenkinsfile](./jenkins/Jenkinsfile)
+
 CI/CD Flow
 ===========
 
