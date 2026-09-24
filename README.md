@@ -93,14 +93,18 @@ Key Implementation
 💼 DevOps Services
 ===================
 
-* Jenkins CI/CD Pipeline Setup
-* GitHub Webhook Configuration
-* Dockerization
-* AWS ECR Setup
-* AWS EKS Deployment
-* Kubernetes Deployment
-* AWS/Linux Troubleshooting
-* Application Deployment Automation
+I can help with:
+
+- Jenkins CI/CD pipeline setup
+- GitHub webhook integration
+- Dockerizing applications
+- AWS ECR image build and push
+- AWS EKS Kubernetes deployments
+- Kubernetes deployment troubleshooting
+- Linux server troubleshooting
+- CI/CD pipeline troubleshooting
+- AWS deployment support
+- Application deployment automation
 
 ---
 📫 Contact
